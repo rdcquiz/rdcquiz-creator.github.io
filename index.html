@@ -522,6 +522,10 @@
     .music-hint{ padding: 26px 20px 20px; }
   }
 </style>
+<!-- Private visit/quiz tracker (GoatCounter) — replace YOUR-SITE-CODE below with the code
+     you get after signing up free at https://www.goatcounter.com. Your stats are only
+     visible to you, at https://YOUR-SITE-CODE.goatcounter.com -->
+<script data-goatcounter="https://YOUR-SITE-CODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 
@@ -1565,6 +1569,11 @@ function showResult(){
   clearInterval(timerInterval);
   document.getElementById('screen-quiz').classList.add('hidden');
   document.getElementById('screen-result').classList.remove('hidden');
+
+  // Log a "quiz completed" event to the private tracker (separate from page visits)
+  if(window.goatcounter && window.goatcounter.count){
+    window.goatcounter.count({ path: 'quiz-completed', title: 'Quiz Completed', event: true });
+  }
 
   let tier, title, desc;
   const pctScore = score / activeQuestions.length;
